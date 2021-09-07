@@ -11,10 +11,24 @@ const theme = createTheme({
   }
 })
 
+const useStyles = makeStyles(() => ({
+  header: {
+		display: "flex",
+		fontSize: 50,
+		textTransform: "uppercase",
+		backgroundColor: "#1e2a3b",
+		color: "white",
+		alingItems: "center",
+		justifyContent: "center",
+		padding: 20
+  }
+}))
+
 const Header = () => {
+  const classes = useStyles()
   return (
 	<ThemeProvider theme={theme}>
-	  <Typography> saa </Typography>
+	  <Typography className={classes.header}> saa </Typography>
 	</ThemeProvider>
   )
 }
