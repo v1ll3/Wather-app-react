@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from "react"
-import {getForeCast} from "./request"
+import { makeStyles } from "@material-ui/core/styles"
+import { getForeCast } from "./request"
+import { formatTime } from "./utils/formatTime"
+
+const useStyles = makeStyles(() => ({
+
+}))
 
 const Weather = () => {
-	const [value, setValue] = useState(0)	
+	const [forecasts, setForecast] = useState([])	
+	const [focusedForecastDT, setFocusedForecastDT] = useState()
 
 	useEffect(() => {
 		getForeCast().then((response) => {
-			console.log("response", response)
+			setForecast(response);
+			setFocusedForecastDT(response.list[0].dt)
 		})
 	}, [])
+	console.log("rendering", forecasts)
 
+	if (!forecasts || !focusedForecastDT) return null;
+
+	const selectedForecast = forecasts.list.find(f => f.dt === focusedForecastDT)
 	return (
 		<div>
-			Tässä on luku mikä on "value": {value}
-			<button onClick={() => setValue(50)}> Tässä on nappi </button>
+			<div>
+		      {forecasts.city.name}
+			</div>
+			<div>
+			  Aurinko nousee kello: {formatTime(forecasts.city.sunrise)}
+			</div>
+			<div>
+			  Aurinko laskee klo: {formatTime(forecasts.city.sunset)}
+			</div>
 		</div>
 	)
 }
