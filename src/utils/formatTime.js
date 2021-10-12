@@ -7,7 +7,7 @@ export const formatTime = (timestamp) => {
 
 export const formatDay = (timestamp) => {
 	const dateTime = new Date(timestamp * 1000)
-	const day = dateTime.getdate()
+	const day = dateTime.getDate()
 	const month = dateTime.getMonth() + 1
 	return `${day}.${month}`
 }
